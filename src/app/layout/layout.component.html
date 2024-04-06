@@ -1,0 +1,59 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Superstore</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="dashboard" routerLinkActive #homeLink="routerLinkActive"
+        [activated]="homeLink.isActive">
+        <mat-icon matListItemIcon>home</mat-icon>
+        <div matListItemTitle>Inicio</div>
+      </a>
+      <a mat-list-item routerLink="categories" routerLinkActive #categoryLink="routerLinkActive"
+        [activated]="categoryLink.isActive">
+        <mat-icon matListItemIcon>category</mat-icon>
+        <div matListItemTitle>Categoría</div>
+      </a>
+      <a mat-list-item routerLink="products" routerLinkActive #productLink="routerLinkActive"
+        [activated]="productLink.isActive">
+        <mat-icon matListItemIcon>sell</mat-icon>
+        <div matListItemTitle>Productos</div>
+      </a>
+      <a mat-list-item routerLink="orders" routerLinkActive #orderLink="routerLinkActive"
+        [activated]="orderLink.isActive">
+        <mat-icon matListItemIcon>shopping_bag</mat-icon>
+        <div matListItemTitle>Ordenes</div>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      }
+
+      <div class="flex justify-end w-full">
+        <img src="https://ui-avatars.com/api/?name=Alvaro+Iturrizaga&bold=true" alt="Avatar"
+          class="rounded-full cursor-pointer h-10 w-10" aria-label="User option menu"
+          [matMenuTriggerFor]="optionMenu">
+        <mat-menu #optionMenu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Mi cuenta</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Ajustes</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
