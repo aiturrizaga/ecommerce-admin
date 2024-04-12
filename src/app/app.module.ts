@@ -15,13 +15,17 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProductComponent } from './domain/product/product.component';
+import { CategoryComponent } from './domain/category/category.component';
+import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     DashboardComponent,
-    ProductComponent
+    ProductComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,9 @@ import { ProductComponent } from './domain/product/product.component';
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    HttpClientModule
   ],
   providers: [
     provideAnimationsAsync()
