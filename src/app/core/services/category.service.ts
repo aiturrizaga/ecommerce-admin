@@ -16,4 +16,8 @@ export class CategoryService {
     return this.http.post('https://vgshop-api.onrender.com/vgshop/v1/categories', body);
   }
 
+  update(id: number, body: any) {
+    return this.http.put('https://vgshop-api.onrender.com/vgshop/v1/categories/' + id, body);
+  }
+
 }

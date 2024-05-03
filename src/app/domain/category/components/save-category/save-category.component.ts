@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CategoryService } from '../../../../core/services/category.service';
 
 @Component({
@@ -15,24 +15,42 @@ export class SaveCategoryComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<any>,
     private fb: FormBuilder,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
     this.initCategoryForm();
+    console.log('DATA:', this.data);
   }
 
-  registerCategory() {
+  saveCategory() {
     if (this.categoryForm.invalid) {
       this.categoryForm.markAllAsTouched();
       return;
     }
 
-    console.log('Category form:', this.categoryForm.value);
+    if (this.data) {
+      this.updateCategory();
+    } else {
+      this.registerCategory();
+    }
+  }
+
+  registerCategory() {
     this.categoryService.register(this.categoryForm.value).subscribe((res) => {
       console.log('Respuesta registrar categoria:', res);
       this.closeDialog(true);
     });
+  }
+
+  updateCategory() {
+    this.categoryService
+      .update(this.data.id, this.categoryForm.value)
+      .subscribe((res) => {
+        console.log('Respuesta actualizar categoria:', res);
+        this.closeDialog(true);
+      });
   }
 
   closeDialog(success?: boolean) {
@@ -45,6 +63,9 @@ export class SaveCategoryComponent implements OnInit {
       description: [],
       slug: ['', [Validators.required]],
     });
+    if (this.data) {
+      this.categoryForm.patchValue(this.data);
+    }
   }
 
   updateErrorMessage(control: string) {

@@ -9,7 +9,7 @@ import { SaveCategoryComponent } from './components/save-category/save-category.
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent implements OnInit {
-  public displayedColumns: string[] = ['id', 'name', 'description', 'slug'];
+  public displayedColumns: string[] = ['id', 'name', 'description', 'slug', 'option'];
   public dataSource: any[] = [];
   public categories: any[] = [];
 
@@ -23,8 +23,10 @@ export class CategoryComponent implements OnInit {
     this.getCategories();
   }
 
-  openDialog() {
-    const dlgRef = this.dialog.open(SaveCategoryComponent);
+  openDialog(category?: any) {
+    const dlgRef = this.dialog.open(SaveCategoryComponent, {
+      data: category
+    });
     dlgRef.afterClosed().subscribe((res) => {
       console.log('Se cerror el dialog con el valor:', res);
       if (res) {
