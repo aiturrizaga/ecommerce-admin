@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Nueva categoria</h2>
+<mat-dialog-content>
+  <form class="container" [formGroup]="categoryForm">
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input formControlName="name" matInput (blur)="updateErrorMessage('name')">
+      @if(form['name'].touched && form['name'].errors) {
+        <mat-error>{{errorMessage}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Slug</mat-label>
+      <input formControlName="slug" matInput>
+      @if(form['slug'].errors) {
+        <mat-error>Hay un error en tu input</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <textarea formControlName="description" matInput></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancelar</button>
+  <button mat-button cdkFocusInitial (click)="registerCategory()">Registrar</button>
+</mat-dialog-actions>

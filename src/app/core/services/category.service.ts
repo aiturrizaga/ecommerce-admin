@@ -9,7 +9,11 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   findAll() {
-    return this.http.get('https://fdqkmpt6-8080.brs.devtunnels.ms/pizza-shop/v1/categories');
+    return this.http.get('https://vgshop-api.onrender.com/vgshop/v1/categories');
+  }
+
+  register(body: any) {
+    return this.http.post('https://vgshop-api.onrender.com/vgshop/v1/categories', body);
   }
 
 }
