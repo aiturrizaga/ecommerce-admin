@@ -9,7 +9,13 @@ import { SaveCategoryComponent } from './components/save-category/save-category.
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent implements OnInit {
-  public displayedColumns: string[] = ['id', 'name', 'description', 'slug', 'option'];
+  public displayedColumns: string[] = [
+    'id',
+    'name',
+    'description',
+    'slug',
+    'option',
+  ];
   public dataSource: any[] = [];
   public categories: any[] = [];
 
@@ -25,13 +31,19 @@ export class CategoryComponent implements OnInit {
 
   openDialog(category?: any) {
     const dlgRef = this.dialog.open(SaveCategoryComponent, {
-      data: category
+      data: category,
     });
     dlgRef.afterClosed().subscribe((res) => {
       console.log('Se cerror el dialog con el valor:', res);
       if (res) {
         this.getCategories();
       }
+    });
+  }
+
+  deleteCategory(id: number) {
+    this.categoryService.delete(id).subscribe(() => {
+      this.getCategories();
     });
   }
 

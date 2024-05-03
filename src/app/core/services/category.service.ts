@@ -20,4 +20,8 @@ export class CategoryService {
     return this.http.put('https://vgshop-api.onrender.com/vgshop/v1/categories/' + id, body);
   }
 
+  delete(id: number) {
+    return this.http.delete('https://vgshop-api.onrender.com/vgshop/v1/categories/' + id);
+  }
+
 }

@@ -39,7 +39,7 @@
       <th mat-header-cell *matHeaderCellDef> Opciones </th>
       <td mat-cell *matCellDef="let element">
         <button mat-stroked-button (click)="openDialog(element)" color="primary" style="margin-right: 1rem;">Editar</button>
-        <button mat-stroked-button color="warn">Eliminar</button>
+        <button mat-stroked-button (click)="deleteCategory(element.id)" color="warn">Eliminar</button>
       </td>
     </ng-container>
 
