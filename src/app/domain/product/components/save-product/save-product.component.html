@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Nuevo producto</h2>
+<mat-dialog-content>
+    <form class="container" [formGroup]="productForm">
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input formControlName="name" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Slug</mat-label>
+            <input formControlName="slug" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoryId">
+                @for (category of categories; track category.id) {
+                    <mat-option [value]="category.id">{{category.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+            <mat-label>Precio</mat-label>
+            <input formControlName="price" matInput type="number" placeholder="0">
+            <span matTextPrefix>$&nbsp;</span>
+            <span matTextSuffix>.00</span>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Descripción</mat-label>
+            <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancelar</button>
+    <button mat-button cdkFocusInitial (click)="registerProduct()">Agregar</button>
+</mat-dialog-actions>
