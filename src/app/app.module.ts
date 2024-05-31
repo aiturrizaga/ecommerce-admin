@@ -25,6 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SaveProductComponent } from './domain/product/components/save-product/save-product.component';
+import { OrderComponent } from './domain/order/order.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SaveProductComponent } from './domain/product/components/save-product/s
     CategoryComponent,
     SaveCategoryComponent,
     SaveProductComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,
