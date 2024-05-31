@@ -32,7 +32,9 @@ export class ProductComponent implements OnInit {
   }
 
   openDialog(product?: any) {
-    const dlgRef = this.dialog.open(SaveProductComponent);
+    const dlgRef = this.dialog.open(SaveProductComponent, {
+      data: product
+    });
     dlgRef.afterClosed().subscribe(res => {
       if (res) {
         this.getProducts();

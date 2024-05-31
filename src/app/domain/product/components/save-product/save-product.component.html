@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Nuevo producto</h2>
+<h2 mat-dialog-title>{{data ? 'Actualizar Producto' : 'Nuevo producto'}}</h2>
 <mat-dialog-content>
     <form class="container" [formGroup]="productForm">
         <mat-form-field>
@@ -11,7 +11,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Categoria</mat-label>
-            <mat-select formControlName="categoryId">
+            <mat-select formControlName="categoryId" [compareWith]="compareFn">
                 @for (category of categories; track category.id) {
                     <mat-option [value]="category.id">{{category.name}}</mat-option>
                 }
@@ -31,5 +31,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button (click)="closeDialog()">Cancelar</button>
-    <button mat-button cdkFocusInitial (click)="registerProduct()">Agregar</button>
+    <button mat-button cdkFocusInitial (click)="saveProduct()">{{data ? 'Actualizar' : 'Agregar'}}</button>
 </mat-dialog-actions>
