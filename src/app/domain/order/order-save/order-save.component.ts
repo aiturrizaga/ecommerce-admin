@@ -1,10 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from '../../../core/services/person.service';
 import { Person, PersonAddress } from '../../../core/interfaces/person';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/interfaces/product';
-import { SelectedOrderProduct } from '../../../core/interfaces/order';
+import {
+  SaveOrder,
+  SaveOrderItem,
+  SelectedOrderProduct,
+} from '../../../core/interfaces/order';
+import { OrderService } from '../../../core/services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-save',
@@ -32,13 +43,31 @@ export class OrderSaveComponent implements OnInit {
   constructor(
     private personService: PersonService,
     private productService: ProductService,
-    private fb: FormBuilder
+    private orderService: OrderService,
+    private fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.initOrderForm();
     this.getPersons();
     this.getProducts();
+  }
+
+  registerOrder() {
+    const body: SaveOrder = { ...this.orderForm.value };
+    body.state = 'IN_PROGRESS';
+    body.items = this.selectedOrderProducts.map((res) => {
+      const item: SaveOrderItem = {
+        productId: res.productId,
+        quantity: res.productQuantity,
+      };
+      return item;
+    });
+    this.orderService.register(body).subscribe(() => {
+      alert('Orden registrada');
+      this.router.navigate(['/orders']);
+    });
   }
 
   addSelectedOrderProduct(): void {
@@ -48,13 +77,15 @@ export class OrderSaveComponent implements OnInit {
       productName: product.name,
       productPrice: product.price,
       productQuantity: this.quantityCtrl.value,
-      productSubtotal: product.price * this.quantityCtrl.value
-    }
+      productSubtotal: product.price * this.quantityCtrl.value,
+    };
     this.selectedOrderProducts = [...this.selectedOrderProducts, orderItem];
   }
 
   removeSelectedOrderProduct(productId: number): void {
-    this.selectedOrderProducts = this.selectedOrderProducts.filter(item => item.productId !== productId);
+    this.selectedOrderProducts = this.selectedOrderProducts.filter(
+      (item) => item.productId !== productId
+    );
   }
 
   getPersons() {
