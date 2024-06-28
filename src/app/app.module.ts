@@ -26,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SaveProductComponent } from './domain/product/components/save-product/save-product.component';
 import { OrderComponent } from './domain/order/order.component';
+import { OrderSaveComponent } from './domain/order/order-save/order-save.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { OrderComponent } from './domain/order/order.component';
     SaveCategoryComponent,
     SaveProductComponent,
     OrderComponent,
+    OrderSaveComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -17,4 +18,13 @@ export class OrderComponent {
     'option',
   ];
   public dataSource: any[] = [];
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  gotoSavePage() {
+    // this.router.navigate(['orders/register']);
+    // this.router.navigate(['orders', 'register']);
+    this.router.navigate(['register'], {relativeTo: this.route});
+  }
+
 }

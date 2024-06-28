@@ -5,6 +5,7 @@ import { DashboardComponent } from './domain/dashboard/dashboard.component';
 import { ProductComponent } from './domain/product/product.component';
 import { CategoryComponent } from './domain/category/category.component';
 import { OrderComponent } from './domain/order/order.component';
+import { OrderSaveComponent } from './domain/order/order-save/order-save.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'orders',
         component: OrderComponent,
+      },
+      {
+        path: 'orders/register',
+        component: OrderSaveComponent
       },
       {
         path: '**',
