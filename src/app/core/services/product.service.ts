@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { Page } from '../interfaces/page';
+import { Product } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class ProductService {
   findAll() {
     console.log('API URL:', environment.apiUrl);
     // environment.apiUrl + '/vgshop/v1/products'
-    return this.http.get(`${environment.apiUrl}/vgshop/v1/products`);
+    return this.http.get<Page<Product>>(`${environment.apiUrl}/vgshop/v1/products`);
   }
 
   register(body: any) {
