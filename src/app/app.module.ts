@@ -27,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SaveProductComponent } from './domain/product/components/save-product/save-product.component';
 import { OrderComponent } from './domain/order/order.component';
 import { OrderSaveComponent } from './domain/order/order-save/order-save.component';
+import { MatTooltip } from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -40,25 +41,26 @@ import { OrderSaveComponent } from './domain/order/order-save/order-save.compone
     OrderComponent,
     OrderSaveComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatTableModule,
-    HttpClientModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatGridListModule,
+        MatCardModule,
+        MatMenuModule,
+        MatTableModule,
+        HttpClientModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatTooltip
+    ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })

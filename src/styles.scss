@@ -42,20 +42,33 @@ body {
     overflow-x: auto;
 }
 
-.fixed {
-    position: fixed;
-}
-
-.bottom-0 {
-    bottom: 0;
-}
-
-.right-0 {
-    right: 0;
-}
-
 .container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.order-status-badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.5em;
+  font-size: 0.875em;
+  text-align: center;
+  color: white;
+
+  &.IN_PROGRESS {
+    background-color: #007bff;
+  }
+
+  &.ON_WAY {
+    background-color: #ffc107;
+  }
+
+  &.DELIVERED {
+    background-color: #28a745;
+  }
+
+  &.CANCELLED {
+    background-color: #dc3545;
+  }
 }

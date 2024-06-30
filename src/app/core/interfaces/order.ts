@@ -1,4 +1,30 @@
-export type OrderType = 'IN_PROGRESS' | 'ON_WAY' | 'DELIVERED' | 'CANCELLED';
+import { Person } from "./person";
+import { Product } from "./product";
+
+export type OrderState = 'IN_PROGRESS' | 'ON_WAY' | 'DELIVERED' | 'CANCELLED';
+
+export interface Order {
+  id: number;
+  person: Person;
+  address: string;
+  saleDate: Date;
+  amountTotal: number;
+  orderType: string;
+  paymentMethod: string;
+  paymentDate: Date;
+  latitude: number;
+  longitude: number;
+  state: string;
+  orderLines: OrderLine[];
+}
+
+export interface OrderLine {
+  id: number;
+  product: Product;
+  quantity: number;
+  priceUnit: number;
+  priceTotal: number;
+}
 
 export interface SaveOrder {
   userId: number;
@@ -7,7 +33,7 @@ export interface SaveOrder {
   paymentMethod: string;
   latitude?: number;
   longitude?: number;
-  state: OrderType;
+  state: OrderState;
   items: SaveOrderItem[]
 }
 

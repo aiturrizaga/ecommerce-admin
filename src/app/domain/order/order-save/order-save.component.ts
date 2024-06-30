@@ -40,13 +40,16 @@ export class OrderSaveComponent implements OnInit {
   productCtrl: FormControl = new FormControl('');
   quantityCtrl: FormControl = new FormControl('');
 
+  totalAmount: number = 0;
+
   constructor(
     private personService: PersonService,
     private productService: ProductService,
     private orderService: OrderService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.initOrderForm();
@@ -55,6 +58,16 @@ export class OrderSaveComponent implements OnInit {
   }
 
   registerOrder() {
+    if (this.orderForm.invalid) {
+      this.orderForm.markAllAsTouched();
+      return;
+    }
+
+    if (this.selectedOrderProducts && this.selectedOrderProducts.length <= 0) {
+      alert('No hay ningún producto agregado');
+      return;
+    }
+
     const body: SaveOrder = { ...this.orderForm.value };
     body.state = 'IN_PROGRESS';
     body.items = this.selectedOrderProducts.map((res) => {
@@ -71,21 +84,44 @@ export class OrderSaveComponent implements OnInit {
   }
 
   addSelectedOrderProduct(): void {
-    const product: Product = this.productCtrl.value;
-    const orderItem: SelectedOrderProduct = {
-      productId: product.id,
-      productName: product.name,
-      productPrice: product.price,
-      productQuantity: this.quantityCtrl.value,
-      productSubtotal: product.price * this.quantityCtrl.value,
-    };
-    this.selectedOrderProducts = [...this.selectedOrderProducts, orderItem];
+    if (this.productCtrl.value && this.quantityCtrl.value) {
+      const product: Product = this.productCtrl.value;
+      const quantity = this.quantityCtrl.value;
+      const existingProductIndex = this.selectedOrderProducts.findIndex(
+        (item) => item.productId === product.id
+      );
+
+      if (existingProductIndex !== -1) {
+        // El producto ya existe, actualizar cantidad y subtotal
+        this.selectedOrderProducts[existingProductIndex].productQuantity = quantity;
+        this.selectedOrderProducts[existingProductIndex].productSubtotal = product.price * quantity;
+      } else {
+        // El producto no existe, agregar a la lista
+        const orderItem: SelectedOrderProduct = {
+          productId: product.id,
+          productName: product.name,
+          productPrice: product.price,
+          productQuantity: quantity,
+          productSubtotal: product.price * quantity,
+        };
+        this.selectedOrderProducts = [...this.selectedOrderProducts, orderItem];
+      }
+
+      this.productCtrl.reset();
+      this.quantityCtrl.reset();
+      this.calculateTotalAmount();
+    }
   }
 
   removeSelectedOrderProduct(productId: number): void {
     this.selectedOrderProducts = this.selectedOrderProducts.filter(
       (item) => item.productId !== productId
     );
+    this.calculateTotalAmount();
+  }
+
+  calculateTotalAmount() {
+    this.totalAmount = this.selectedOrderProducts.reduce((a, b) => a + b.productSubtotal, 0);
   }
 
   getPersons() {
